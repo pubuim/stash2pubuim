@@ -2,14 +2,14 @@
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.pragbits.stash</groupId>
-    <artifactId>stash2slack</artifactId>
+    <groupId>com.pubuim.stash</groupId>
+    <artifactId>stash2pubu</artifactId>
     <version>1.2</version>
     <organization>
         <name>Pubu.IM</name>
         <url>https://beta.pubu.im/</url>
     </organization>
-    <name>Pubu notifications for pull request and push activities</name>
+    <name>Pubu.IM notifications for pull request and push activities</name>
     <description>Sends pull request activity and git push notifications to Pubu.IM</description>
     <packaging>atlassian-plugin</packaging>
     <dependencyManagement>
