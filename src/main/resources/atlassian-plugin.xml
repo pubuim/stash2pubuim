@@ -11,7 +11,7 @@
 
   </plugin-info>
   <!-- add our web resources -->
-  <web-resource key="slash2stack-resources" name="slash2stack Web Resources">
+  <web-resource key="slash2pubuim-resources" >
     <dependency>com.atlassian.auiplugin:ajs</dependency>
     <resource type="download" name="images/" location="/images"/>
     <context>slash2stack</context>
@@ -30,9 +30,9 @@
    <dependency>com.atlassian.stash.stash-web-plugin:server-soy-templates</dependency>
   </stash-resource>
 
-  <web-item key="repository-settings-slack-settings" weight="30" section="stash.repository.settings.panel/repository-settings-addons-section">
+  <web-item key="repository-settings-pubuim-settings" weight="30" section="stash.repository.settings.panel/repository-settings-addons-section">
    <label key="stash.web.repository.settings.tab.slack.settings">Pubu.IM settings</label>
-   <tooltip key="stash.web.repository.settings.tab.slack.settings.tooltip">Configure whether you want Pubu.IM notifications</tooltip>
+   <tooltip key="stash.web.repository.settings.tab.pubuim.settings.tooltip">Configure whether you want Pubu.IM notifications</tooltip>
    <link>${navBuilder.pluginServlets().path('pubu-settings', $project.key, $repository.slug).buildRelNoContext()}</link>
   </web-item>
 
@@ -42,7 +42,7 @@
    <!--<link>/plugins/servlet/slack-global-settings/admin</link>-->
   <!--</web-item>-->
 
-  <servlet key="slack-settings-servlet" class="com.pragbits.stash.SlackSettingsServlet">
+  <servlet key="pubuim-settings-servlet" class="com.pragbits.stash.SlackSettingsServlet">
    <url-pattern>/pubu-settings/*</url-pattern>
   </servlet>
 
