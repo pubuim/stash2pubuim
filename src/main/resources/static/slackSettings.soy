@@ -10,13 +10,13 @@
         <meta name="decorator" content="stash.repository.settings">
         <meta name="projectKey" content="{$repository.project.key}">
         <meta name="repositorySlug" content="{$repository.slug}">
-        <meta name="activeTab" content="repository-settings-slack-settings">
-        <title>{{stash_i18n('stash.web.slack.settings.title', 'Slack settings for {0} / {1}', $repository.project.name, $repository.name)}}</title>
+        <meta name="activeTab" content="repository-settings-pubu-settings">
+        <title>{{stash_i18n('stash.web.pubu.settings.title', 'Pubu.IM settings for {0} / {1}', $repository.project.name, $repository.name)}}</title>
     </head>
     <body>
         {call widget.aui.pageHeader}
             {param content}
-                <h2>{stash_i18n('stash.web.slack.settings.heading', 'Slack settings')}</h2>
+                <h2>{stash_i18n('stash.web.pubu.settings.heading', 'Pubu.IM settings')}</h2>
             {/param}
         {/call}
         {call widget.aui.form.form}
@@ -24,27 +24,27 @@
             {param content}
                 {call widget.aui.form.checkbox}
                     {param id: 'slackNotificationsEnabled' /}
-                    {param labelContent: stash_i18n('stash.web.slack.settings.slack.enabled.label', 'Enable slack notifications for pull requests') /}
+                    {param labelContent: stash_i18n('stash.web.pubu.settings.pubu.enabled.label', 'Enable Pubu.IM notifications for pull requests') /}
                     {param checked: $slackSettings.slackNotificationsEnabled /}
-                    {param description: stash_i18n('stash.web.slack.settings.slack.enabled.description', 'If enabled, users will receive slack notifications about pull request activities') /}
+                    {param description: stash_i18n('stash.web.pubu.settings.pubu.enabled.description', 'If enabled, users will receive pubu notifications about pull request activities') /}
                 {/call}
                 {call widget.aui.form.checkbox}
                     {param id: 'slackNotificationsEnabledForPush' /}
-                    {param labelContent: stash_i18n('stash.web.slack.settings.slack.push.enabled.label', 'Enable slack notifications for push') /}
+                    {param labelContent: stash_i18n('stash.web.pubu.settings.pubu.push.enabled.label', 'Enable Pubu.IM notifications for push') /}
                     {param checked: $slackSettings.slackNotificationsEnabledForPush /}
-                    {param description: stash_i18n('stash.web.slack.settings.slack.push.enabled.description', 'If enabled, users will receive slack notifications about push activities') /}
+                    {param description: stash_i18n('stash.web.pubu.settings.pubu.push.enabled.description', 'If enabled, users will receive Pubu.IM notifications about push activities') /}
                 {/call}
                 {call widget.aui.form.text}
                     {param id: 'slackChannelName' /}
-                    {param labelContent: stash_i18n('stash.web.slack.settings.slack.channel', 'Channel name') /}
+                    {param labelContent: stash_i18n('stash.web.pubu.settings.pubu.channel', 'Channel name') /}
                     {param initialValue: $slackSettings.slackChannelName /}
-                    {param description: stash_i18n('stash.web.slack.settings.slack.channel.description', 'Slack channel to use. If empty, #general will be used') /}
+                    {param description: stash_i18n('stash.web.pubu.settings.pubu.channel.description', 'Pubu.IM channel to use. If empty, #general will be used') /}
                 {/call}
                 {call widget.aui.form.text}
                     {param id: 'slackWebHookUrl' /}
-                    {param labelContent: stash_i18n('stash.web.slack.settings.slack.webhookurl', 'Webhook Url') /}
+                    {param labelContent: stash_i18n('stash.web.pubu.settings.pubu.webhookurl', 'Webhook Url') /}
                     {param initialValue: $slackSettings.slackWebHookUrl /}
-                    {param description: stash_i18n('stash.web.slack.settings.slack.webhookurl.description', 'Slack webhook url. Overrides global setting, if nonempty. Useful when you want to post to a different team using a different hook') /}
+                    {param description: stash_i18n('stash.web.pubu.settings.pubu.webhookurl.description', 'Pubu.IM webhook url. Overrides global setting, if nonempty. Useful when you want to post to a different team using a different hook') /}
                 {/call}
                 {call aui.form.buttons}
                     {param content}

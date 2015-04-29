@@ -18,6 +18,9 @@ import com.pragbits.stash.SlackGlobalSettingsService;
 import com.pragbits.stash.SlackSettings;
 import com.pragbits.stash.SlackSettingsService;
 import com.pragbits.stash.tools.*;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -94,6 +97,7 @@ public class RepositoryPushActivityListener {
                 }
 
                 payload.setText(text);
+
                 payload.setMrkdwn(true);
 
                 List<Changeset> myChanges = new LinkedList<Changeset>();
@@ -129,7 +133,34 @@ public class RepositoryPushActivityListener {
                     payload.addAttachment(attachment);
                 }
 
-                slackNotifier.SendSlackNotification(hookSelector.getSelectedHook(), gson.toJson(payload));
+
+                try {
+                    JSONObject json = new JSONObject();
+                    json.put("type", refChange.getType());
+                    json.put("action", "commit");
+                    json.put("user", event.getUser() != null ? event.getUser().getDisplayName() : "unknown user");
+                    json.put("repo", refChange.getRefId());
+
+                    json.put("url", url);
+
+                    JSONArray commits = new JSONArray();
+
+                    for (Changeset ch : myChanges) {
+                        JSONObject commit = new JSONObject();
+                        commit.put("author", ch.getAuthor().getName() + " "+ ch.getAuthor().getEmailAddress());
+                        commit.put("message", ch.getMessage());
+                        commit.put("hash", ch.getId());
+                        commit.put("url", url.concat(String.format("/%s", ch.getId())));
+                        commits.put(commit);
+                        json.put("head_commit", commit);
+                    }
+                    json.put("commits", commits);
+                    json.put("type", "push");
+                    slackNotifier.SendSlackNotification(hookSelector.getSelectedHook(), json.toString());
+                } catch (JSONException e) {
+                    slackNotifier.SendSlackNotification(hookSelector.getSelectedHook(), gson.toJson(payload));
+
+                }
             }
 
         }

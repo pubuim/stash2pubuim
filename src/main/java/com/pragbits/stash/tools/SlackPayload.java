@@ -35,6 +35,7 @@ public class SlackPayload {
 
     private boolean mrkdwn;
 
+
     private List<SlackAttachment> attachments = new LinkedList<SlackAttachment>();
 
     public void addAttachment(SlackAttachment slackAttachment) {
@@ -44,5 +45,25 @@ public class SlackPayload {
     public void removeAttachment(int index) {
         this.attachments.remove(index);
     }
+
+//    private String commit;
+
+//
+//    public String getCommit() {
+//        return commit;
+//    }
+//
+//    public void setCommit(String commit) {
+//        this.commit = commit;
+//    }
+//
+//    private String author;
+//
+//    private String commitUrl;
+//
+//    private String branch;
+//    private String repo;
+
+
 
 }

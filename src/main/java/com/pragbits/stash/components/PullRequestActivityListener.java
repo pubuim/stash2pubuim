@@ -10,10 +10,9 @@ import com.pragbits.stash.SlackGlobalSettingsService;
 import com.pragbits.stash.SlackSettings;
 import com.pragbits.stash.SlackSettingsService;
 import com.pragbits.stash.tools.*;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.io.IOException;
 
 public class PullRequestActivityListener {
     static final String KEY_GLOBAL_SETTING_HOOK_URL = "stash2slack.globalsettings.hookurl";
@@ -27,9 +26,9 @@ public class PullRequestActivityListener {
 
 
     public PullRequestActivityListener(SlackGlobalSettingsService slackGlobalSettingsService,
-                                             SlackSettingsService slackSettingsService,
-                                             NavBuilder navBuilder,
-                                             SlackNotifier slackNotifier) {
+                                       SlackSettingsService slackSettingsService,
+                                       NavBuilder navBuilder,
+                                       SlackNotifier slackNotifier) {
         this.slackGlobalSettingsService = slackGlobalSettingsService;
         this.slackSettingsService = slackSettingsService;
         this.navBuilder = navBuilder;
@@ -63,7 +62,7 @@ public class PullRequestActivityListener {
             if (activity.equalsIgnoreCase("RESCOPED")) {
                 return;
             }
-
+            //text: "Pull request event: `date`, activity: `OPENED` by `tang`. <http://localhost:7990/projects/TEST/repos/test-proj/pull-requests/1/overview|See details>"
             String url = navBuilder
                     .project(projectName)
                     .repo(repoName)
@@ -94,7 +93,7 @@ public class PullRequestActivityListener {
 
             switch (event.getActivity().getAction()) {
                 case OPENED:
-                    field.setValue(String.format("*%s* OPENED the pull request: `%s`", userName,  event.getPullRequest().getTitle()));
+                    field.setValue(String.format("*%s* OPENED the pull request: `%s`", userName, event.getPullRequest().getTitle()));
                     attachment.setColor("#2267c4"); // blue
                     break;
                 case DECLINED:
@@ -126,15 +125,36 @@ public class PullRequestActivityListener {
             if (event instanceof PullRequestCommentActivityEvent) {
                 field.setValue(String.format("*%s* commented the pull request: `%s`",
                         userName,
-                        ((PullRequestCommentActivityEvent)event).getActivity().getComment().getText()));
+                        ((PullRequestCommentActivityEvent) event).getActivity().getComment().getText()));
             }
-
             field.setShort(false);
             attachment.addField(field);
             payload.addAttachment(attachment);
             String jsonPayload = gson.toJson(payload);
 
-            slackNotifier.SendSlackNotification(hookSelector.getSelectedHook(), jsonPayload);
+
+            try {
+                JSONObject json = new JSONObject();
+                json.put("action", "pr");
+                json.put("type", event.getActivity().getAction());
+                json.put("title", event.getPullRequest().getTitle());
+                json.put("desc", event.getPullRequest().getDescription());
+                json.put("user", userName);
+                json.put("assignee", event.getPullRequest().getReviewers());
+                json.put("number", event.getPullRequest().getId());
+
+                json.put("repo", repoName);
+
+
+                json.put("url", url);
+
+
+                slackNotifier.SendSlackNotification(hookSelector.getSelectedHook(), json.toString());
+            } catch (Exception e) {
+                slackNotifier.SendSlackNotification(hookSelector.getSelectedHook(), jsonPayload);
+
+            }
+
         }
 
     }

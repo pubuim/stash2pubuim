@@ -6,11 +6,11 @@
     <artifactId>stash2slack</artifactId>
     <version>1.2</version>
     <organization>
-        <name>Pragmatic Bits</name>
-        <url>http://blog.pragbits.com/</url>
+        <name>Pubu.IM</name>
+        <url>https://beta.pubu.im/</url>
     </organization>
-    <name>Slack notifications for pull request and push activities</name>
-    <description>Sends pull request activity and git push notifications to slack</description>
+    <name>Pubu notifications for pull request and push activities</name>
+    <description>Sends pull request activity and git push notifications to Pubu.IM</description>
     <packaging>atlassian-plugin</packaging>
     <dependencyManagement>
         <dependencies>
