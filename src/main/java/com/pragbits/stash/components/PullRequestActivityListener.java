@@ -77,9 +77,7 @@ public class PullRequestActivityListener {
                     url);
 
             SlackPayload payload = new SlackPayload();
-            if (!slackSettings.getSlackChannelName().isEmpty()) {
-                payload.setChannel(slackSettings.getSlackChannelName());
-            }
+
             payload.setText(text);
             payload.setMrkdwn(true);
 

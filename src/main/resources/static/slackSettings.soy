@@ -34,12 +34,7 @@
                     {param checked: $slackSettings.slackNotificationsEnabledForPush /}
                     {param description: stash_i18n('stash.web.pubu.settings.pubu.push.enabled.description', 'If enabled, users will receive Pubu.IM notifications about push activities') /}
                 {/call}
-                {call widget.aui.form.text}
-                    {param id: 'slackChannelName' /}
-                    {param labelContent: stash_i18n('stash.web.pubu.settings.pubu.channel', 'Channel name') /}
-                    {param initialValue: $slackSettings.slackChannelName /}
-                    {param description: stash_i18n('stash.web.pubu.settings.pubu.channel.description', 'Pubu.IM channel to use. If empty, #general will be used') /}
-                {/call}
+
                 {call widget.aui.form.text}
                     {param id: 'slackWebHookUrl' /}
                     {param labelContent: stash_i18n('stash.web.pubu.settings.pubu.webhookurl', 'Webhook Url') /}

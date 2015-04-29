@@ -3,18 +3,15 @@ package com.pragbits.stash;
 import com.atlassian.soy.renderer.SoyException;
 import com.atlassian.soy.renderer.SoyTemplateRenderer;
 import com.atlassian.stash.exception.AuthorisationException;
-import com.atlassian.stash.nav.NavBuilder;
-import com.pragbits.stash.SlackSettings;
-import com.pragbits.stash.SlackSettingsService;
-import com.pragbits.stash.PluginMetadata;
+import com.atlassian.stash.i18n.I18nService;
 import com.atlassian.stash.repository.Repository;
 import com.atlassian.stash.repository.RepositoryService;
 import com.atlassian.stash.user.Permission;
 import com.atlassian.stash.user.PermissionValidationService;
 import com.atlassian.webresource.api.assembler.PageBuilderService;
-import com.atlassian.stash.i18n.I18nService;
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableMap;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -68,9 +65,9 @@ public class SlackSettingsServlet extends HttpServlet {
             enabledPush = true;
         }
 
-        String channel = req.getParameter("slackChannelName");
+
         String webHookUrl = req.getParameter("slackWebHookUrl");
-        slackSettingsService.setSlackSettings(repository, new ImmutableSlackSettings(enabled, enabledPush, channel, webHookUrl));
+        slackSettingsService.setSlackSettings(repository, new ImmutableSlackSettings(enabled, enabledPush, webHookUrl));
 
         doGet(req, res);
     }

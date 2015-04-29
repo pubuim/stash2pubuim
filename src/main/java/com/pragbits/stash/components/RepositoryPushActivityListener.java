@@ -71,9 +71,6 @@ public class RepositoryPushActivityListener {
 
             for (RefChange refChange : event.getRefChanges()) {
                 SlackPayload payload = new SlackPayload();
-                if (!slackSettings.getSlackChannelName().isEmpty()) {
-                    payload.setChannel(slackSettings.getSlackChannelName());
-                }
 
 
                 String url = navBuilder

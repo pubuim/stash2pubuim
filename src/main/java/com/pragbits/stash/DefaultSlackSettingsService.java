@@ -2,8 +2,6 @@ package com.pragbits.stash;
 
 import com.atlassian.sal.api.pluginsettings.PluginSettings;
 import com.atlassian.sal.api.pluginsettings.PluginSettingsFactory;
-import com.pragbits.stash.SlackSettings;
-import com.pragbits.stash.SlackSettingsService;
 import com.atlassian.stash.repository.Repository;
 import com.atlassian.stash.user.Permission;
 import com.atlassian.stash.user.PermissionValidationService;
@@ -21,11 +19,10 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 public class DefaultSlackSettingsService implements SlackSettingsService {
 
-    static final ImmutableSlackSettings DEFAULT_CONFIG = new ImmutableSlackSettings(false, false, "", "");
+    static final ImmutableSlackSettings DEFAULT_CONFIG = new ImmutableSlackSettings(false, false , "");
 
     static final String KEY_SLACK_NOTIFICATION = "slackNotificationsEnabled";
     static final String KEY_SLACK_NOTIFICATION_PUSH = "slackNotificationsEnabledForPush";
-    static final String KEY_SLACK_CHANNEL_NAME = "slackChannelName";
     static final String KEY_SLACK_WEBHOOK_URL = "slackWebHookUrl";
 
     private final PluginSettings pluginSettings;
@@ -77,7 +74,7 @@ public class DefaultSlackSettingsService implements SlackSettingsService {
         return ImmutableMap.of(
                 KEY_SLACK_NOTIFICATION, Boolean.toString(settings.isSlackNotificationsEnabled()),
                 KEY_SLACK_NOTIFICATION_PUSH, Boolean.toString(settings.isSlackNotificationsEnabledForPush()),
-                KEY_SLACK_CHANNEL_NAME, settings.getSlackChannelName().isEmpty() ? " " : settings.getSlackChannelName(),
+
                 KEY_SLACK_WEBHOOK_URL, settings.getSlackWebHookUrl().isEmpty() ? " " : settings.getSlackWebHookUrl()
         );
     }
@@ -88,7 +85,6 @@ public class DefaultSlackSettingsService implements SlackSettingsService {
         return new ImmutableSlackSettings(
                 Boolean.parseBoolean(settings.get(KEY_SLACK_NOTIFICATION)),
                 Boolean.parseBoolean(settings.get(KEY_SLACK_NOTIFICATION_PUSH)),
-                settings.get(KEY_SLACK_CHANNEL_NAME).toString().equals(" ") ? "" : settings.get(KEY_SLACK_CHANNEL_NAME).toString(),
                 settings.get(KEY_SLACK_WEBHOOK_URL).toString().equals(" ") ? "" : settings.get(KEY_SLACK_WEBHOOK_URL).toString()
         );
     }
