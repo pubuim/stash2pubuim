@@ -136,15 +136,16 @@ public class RepositoryPushActivityListener {
                     json.put("type", refChange.getType());
                     json.put("action", "commit");
                     json.put("user", event.getUser() != null ? event.getUser().getDisplayName() : "unknown user");
-                    json.put("repo", refChange.getRefId());
-
+                    json.put("repo", repoName);
+                    json.put("proj", projectName);
                     json.put("url", url);
+
 
                     JSONArray commits = new JSONArray();
 
                     for (Changeset ch : myChanges) {
                         JSONObject commit = new JSONObject();
-                        commit.put("author", ch.getAuthor().getName() + " "+ ch.getAuthor().getEmailAddress());
+                        commit.put("author", ch.getAuthor().getName() + " " + ch.getAuthor().getEmailAddress());
                         commit.put("message", ch.getMessage());
                         commit.put("hash", ch.getId());
                         commit.put("url", url.concat(String.format("/%s", ch.getId())));

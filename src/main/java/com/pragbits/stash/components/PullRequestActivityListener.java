@@ -140,10 +140,8 @@ public class PullRequestActivityListener {
                 json.put("user", userName);
                 json.put("assignee", event.getPullRequest().getReviewers());
                 json.put("number", event.getPullRequest().getId());
-
                 json.put("repo", repoName);
-
-
+                json.put("proj", projectName);
                 json.put("url", url);
 
 
